@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Almuerzos Caseros | Pedidos Semanales en Chile</title>
+  <meta name="description" content="Almuerzos saludables a domicilio en Chile. Menús semanales, pago online con Webpay y MercadoPago. ¡Pide antes de las 20:00 hrs!">
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1e1e2a;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --orange: #F97316;
+      --orange-dark: #ea580c;
+      --green: #10B981;
+      --green-dark: #059669;
+      --gray-light: #F9FAFB;
+      --gray-border: #E5E7EB;
+      --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* mobile-first */
+    section {
+      padding: 64px 0;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: var(--orange);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: inline-block;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(249,115,22,0.2);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--orange-dark);
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px -5px rgba(249,115,22,0.3);
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: var(--orange);
+      border: 1.5px solid var(--orange);
+      padding: 12px 26px;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background-color: #fff5ee;
+      transform: translateY(-2px);
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 32px;
+      padding-bottom: 48px;
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: #4b5563;
+      margin-bottom: 28px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .urgency-badge {
+      background-color: #FEF3C7;
+      color: #B45309;
+      padding: 10px 18px;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: 32px;
+      object-fit: cover;
+      box-shadow: var(--shadow-md);
+      max-height: 360px;
+      width: 100%;
+    }
+
+    /* Beneficios */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 32px;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .benefit-item i {
+      font-size: 2.5rem;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .benefit-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    /* menú semanal cards */
+    .menu-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .day-card {
+      background: var(--gray-light);
+      border-radius: 28px;
+      padding: 20px;
+      transition: all 0.25s ease;
+      border: 1px solid var(--gray-border);
+    }
+
+    .day-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-sm);
+      border-color: var(--orange);
+    }
+
+    .day-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--orange), #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .main-dish {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      color: #1f2937;
+    }
+
+    .menu-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .menu-tag {
+      background: white;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--orange);
+      border: 1px solid var(--orange);
+    }
+
+    /* Cotizador */
+    .quote-card {
+      background: white;
+      border-radius: 32px;
+      box-shadow: var(--shadow-md);
+      padding: 28px 24px;
+      border: 1px solid var(--gray-border);
+      max-width: 800px;
+      margin: 24px auto 0;
+    }
+
+    .days-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 24px 0;
+      justify-content: center;
+    }
+
+    .day-check {
+      background: #f3f4f6;
+      padding: 8px 18px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .day-check input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--orange);
+      cursor: pointer;
+    }
+
+    .menu-type-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+
+    .menu-radio {
+      flex: 1;
+      background: #f9fafb;
+      border-radius: 24px;
+      padding: 12px 8px;
+      text-align: center;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .menu-radio.selected {
+      border-color: var(--orange);
+      background: #FFF7ED;
+      box-shadow: 0 4px 8px rgba(249,115,22,0.1);
+    }
+
+    .menu-radio input {
+      display: none;
+    }
+
+    .menu-radio strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .price-label {
+      font-size: 0.8rem;
+      color: var(--orange);
+      font-weight: 600;
+    }
+
+    .quantity-box {
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .quantity-box label {
+      font-weight: 600;
+    }
+
+    .quantity-box input {
+      padding: 12px;
+      border-radius: 60px;
+      border: 1px solid var(--gray-border);
+      width: 100px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .total-area {
+      background: #f1f5f9;
+      border-radius: 28px;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .total-price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .disabled-overlay {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .btn-pay {
+      width: 100%;
+      background-color: var(--green);
+      padding: 16px;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .btn-pay:disabled {
+      background-color: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* contador y testimonios */
+    .urgency-section {
+      background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+      border-radius: 48px;
+      padding: 32px 24px;
+      margin: 24px 0;
+      text-align: center;
+    }
+
+    .countdown {
+      font-size: 2.2rem;
+      font-weight: 800;
+      font-family: monospace;
+      background: #1f2937;
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 80px;
+      color: white;
+      letter-spacing: 2px;
+      margin: 16px 0;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Pasos */
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .step {
+      text-align: center;
+      flex: 1;
+      min-width: 140px;
+    }
+    .step-number {
+      width: 56px;
+      height: 56px;
+      background: var(--orange);
+      color: white;
+      font-size: 1.6rem;
+      font-weight: 800;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+    }
+
+    /* empresas */
+    .empresas-box {
+      background: #0f172a;
+      color: white;
+      border-radius: 40px;
+      padding: 48px 32px;
+      text-align: center;
+    }
+    .empresas-box .btn-secondary {
+      background: transparent;
+      border-color: white;
+      color: white;
+      margin-top: 20px;
+    }
+
+    /* pago logos */
+    .payment-logos {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .payment-logos i {
+      font-size: 2rem;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    /* CTA final y footer */
+    .cta-final {
+      text-align: center;
+      background: var(--green);
+      border-radius: 48px;
+      padding: 48px 24px;
+      color: white;
+    }
+    .cta-final .btn-primary {
+      background: white;
+      color: var(--green);
+      margin-top: 20px;
+      font-size: 1.3rem;
+    }
+
+    footer {
+      background: #111827;
+      color: #9ca3af;
+      padding: 32px 0;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: #d1d5db;
+      text-decoration: none;
+    }
+
+    /* sticky button móvil */
+    .sticky-mobile-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: var(--orange);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 60px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
+      z-index: 100;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+      display: none;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .sticky-mobile-btn {
+        display: block;
+      }
+      section {
+        padding: 48px 0;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        flex-direction: row;
+        align-items: center;
+      }
+      .hero-content {
+        text-align: left;
+        flex: 1;
+      }
+      .hero-image {
+        flex: 1;
+      }
+      .btn-group {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sticky-mobile-btn" id="stickyOrderBtn">
+  🍽️ PEDIR AHORA
+</div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>Almuerzos caseros <span>sin cocinar</span> 🍽️</h1>
+        <p class="hero-sub">Elige tu menú semanal y recíbelo en tu puerta. ¡Listo en 2 minutos!</p>
+        <div class="btn-group">
+          <button class="btn-primary" id="heroOrderBtn">Pedir ahora</button>
+          <button class="btn-secondary" id="heroMenuBtn">Ver menú</button>
+        </div>
+        <div class="urgency-badge">
+          <i class="fas fa-clock"></i> ⏰ Pedidos disponibles hasta las 20:00 hrs
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format" alt="Almuerzo casero saludable">
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="container">
+    <h2>Disfruta sin preocupaciones</h2>
+    <div class="benefits-grid">
+      <div class="benefit-item"><i class="fas fa-clock"></i><h3>Entrega puntual</h3><p>Llegamos entre 12:30 y 13:30</p></div>
+      <div class="benefit-item"><i class="fas fa-carrot"></i><h3>Menú variado semanal</h3><p>Más de 20 platos rotativos</p></div>
+      <div class="benefit-item"><i class="fas fa-heartbeat"></i><h3>Opciones saludables</h3><p>Fitness, veggie y más</p></div>
+      <div class="benefit-item"><i class="fas fa-building"></i><h3>Ideal para empresas</h3><p>Planes corporate</p></div>
+    </div>
+  </section>
+
+  <!-- MENÚ SEMANAL (cards) -->
+  <section class="container" id="menuSection">
+    <h2>🍛 Menú de la semana</h2>
+    <div class="menu-cards">
+      <div class="day-card"><div class="day-name">Lunes</div><div class="main-dish">🍗 Pollo al jugo con puré</div><div class="menu-options"><span class="menu-tag">Clásico</span><span class="menu-tag">Ejecutivo</span><span class="menu-tag">Fitness</span><span class="menu-tag">Vegetariano</span></div></div>
+      <div class="day-card"><div class="day-name">Martes</div><div class="main-dish">🍝 Pasta Alfredo con camarones</div><div class="menu-options"><span class="menu-tag">Clásico</span><span class="menu-tag">Ejecutivo</span><span class="menu-tag">Fitness</span><span class="menu-tag">Vegetariano</span></div></div>
+      <div class="day-card"><div class="day-name">Miércoles</div><div class="main-dish">🥩 Lomo saltado</div><div class="menu-options"><span class="menu-tag">Clásico</span><span class="menu-tag">Ejecutivo</span><span class="menu-tag">Fitness</span><span class="menu-tag">Vegetariano</span></div></div>
+      <div class="day-card"><div class="day-name">Jueves</div><div class="main-dish">🐟 Salmón con quinoa</div><div class="menu-options"><span class="menu-tag">Clásico</span><span class="menu-tag">Ejecutivo</span><span class="menu-tag">Fitness</span><span class="menu-tag">Vegetariano</span></div></div>
+      <div class="day-card"><div class="day-name">Viernes</div><div class="main-dish">🍕 Lasagna casera</div><div class="menu-options"><span class="menu-tag">Clásico</span><span class="menu-tag">Ejecutivo</span><span class="menu-tag">Fitness</span><span class="menu-tag">Vegetariano</span></div></div>
+    </div>
+  </section>
+
+  <!-- COTIZADOR DINÁMICO + URGENCIA Y PRUEBA SOCIAL -->
+  <section class="container" id="cotizador">
+    <h2>📋 Arma tu pedido semanal</h2>
+    <div class="quote-card" id="quoteCard">
+      <div style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color:var(--green)"></i> Selecciona tus días</div>
+      <div class="days-selector" id="daysContainer">
+        <!-- dinámico con js pero lo dejamos fijo por claridad: lun a vie -->
+      </div>
+      <div><strong>🍱 Tipo de menú (mismo para todos los días)</strong></div>
+      <div class="menu-type-group" id="menuTypeGroup"></div>
+      <div class="quantity-box"><label>👥 Cantidad de personas:</label><input type="number" id="quantityInput" min="1" value="1"></div>
+      <div class="total-area"><span>Total aproximado</span><div class="total-price" id="dynamicTotal">$0</div><small>IVA incluido · Envío gratis</small></div>
+      <button class="btn-primary btn-pay" id="payNowBtn">Pagar ahora <i class="fas fa-arrow-right"></i></button>
+      <div class="urgency-badge" style="margin-top: 16px; justify-content: center;">⏰ Pedidos se cierran automáticamente a las 20:00 hrs</div>
+    </div>
+  </section>
+
+  <!-- URGENCIA + CONTADOR + TESTIMONIOS -->
+  <div class="container">
+    <div class="urgency-section">
+      <i class="fas fa-hourglass-half fa-2x" style="color:var(--orange)"></i>
+      <h3>⏳ ¡Apúrate! El tiempo se acaba para hoy</h3>
+      <div class="countdown" id="countdownTimer">-- : -- : --</div>
+      <div id="blockMessage" style="font-weight:500; margin-top:8px;"></div>
+      <div class="testimonials">
+        <div class="testimonial-card"><i class="fas fa-star" style="color:gold"></i><i class="fas fa-star" style="color:gold"></i><i class="fas fa-star" style="color:gold"></i><i class="fas fa-star" style="color:gold"></i><i class="fas fa-star" style="color:gold"></i><p>"Excelente sabor y puntualidad. Llevo 3 meses pidiendo."</p><strong>— María, oficinista</strong></div>
+        <div class="testimonial-card"><i class="fas fa-building"></i><p>"Contratamos para nuestro equipo de 15 personas. Ahorro y satisfacción."</p><strong>— NextChile SPA</strong></div>
+        <div class="testimonial-card"><i class="fas fa-utensils"></i><p>"Menú fitness delicioso, perdí peso sin esfuerzo. Ideal WFH."</p><strong>— Sebastián, remoto</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESO SIMPLE -->
+  <section class="container">
+    <h2>📦 Pedir en 3 pasos fáciles</h2>
+    <div class="steps">
+      <div class="step"><div class="step-number">1</div><h3>Elige tus días</h3><p>Lunes a viernes</p></div>
+      <div class="step"><div class="step-number">2</div><h3>Selecciona menú</h3><p>4 opciones para ti</p></div>
+      <div class="step"><div class="step-number">3</div><h3>Recibe en tu puerta</h3><p>Pago online 100% seguro</p></div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN EMPRESAS -->
+  <section class="container">
+    <div class="empresas-box">
+      <i class="fas fa-chalkboard-user fa-2x"></i>
+      <h2>¿Necesitas almuerzos para tu equipo?</h2>
+      <p>Planes personalizados, facturación y delivery sin costo adicional para empresas.</p>
+      <button class="btn-secondary" id="empresaBtn">Cotizar para empresa →</button>
+    </div>
+  </section>
+
+  <!-- PAGO ONLINE + LOGOS -->
+  <section class="container">
+    <div style="text-align:center">
+      <h3><i class="fas fa-lock"></i> Pago 100% seguro</h3>
+      <div class="payment-logos">
+        <span><i class="fab fa-cc-visa"></i> Webpay</span>
+        <span><i class="fab fa-mercadopago" style="color:#00aaff;"></i> MercadoPago</span>
+        <span><i class="fas fa-shield-alt"></i> Datos encriptados</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="container">
+    <div class="cta-final">
+      <h2>Haz tu pedido antes de las 20:00 ⏰</h2>
+      <button class="btn-primary" id="finalCtaBtn">Pedir ahora</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="#">Términos y condiciones</a>
+      <a href="#">Contacto</a>
+    </div>
+    <p>© 2026 Almuerzos Caseros Chile - Sabor y conveniencia</p>
+  </footer>
+</main>
+
+<script>
+  // Precios base por tipo
+  const PRICES = {
+    "Clásico": 5990,
+    "Ejecutivo": 7990,
+    "Fitness": 6990,
+    "Vegetariano": 6490
+  };
+  const weekDays = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+  let selectedDays = new Array(5).fill(true); // por defecto todos seleccionados
+  let currentMenuType = "Clásico";
+  let quantity = 1;
+  let isOrderBlocked = false; // bloqueo por horario
+
+  // DOM elements
+  const daysContainer = document.getElementById("daysContainer");
+  const menuTypeGroup = document.getElementById("menuTypeGroup");
+  const quantityInput = document.getElementById("quantityInput");
+  const dynamicTotalSpan = document.getElementById("dynamicTotal");
+  const payBtn = document.getElementById("payNowBtn");
+  const countdownEl = document.getElementById("countdownTimer");
+  const blockMsgSpan = document.getElementById("blockMessage");
+
+  // Render checkboxes días
+  function renderDays() {
+    daysContainer.innerHTML = "";
+    weekDays.forEach((day, idx) => {
+      const div = document.createElement("div");
+      div.className = "day-check";
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.id = `day_${idx}`;
+      cb.checked = selectedDays[idx];
+      cb.addEventListener("change", (e) => {
+        selectedDays[idx] = e.target.checked;
+        updateTotal();
+      });
+      const label = document.createElement("label");
+      label.htmlFor = `day_${idx}`;
+      label.innerText = day;
+      div.appendChild(cb);
+      div.appendChild(label);
+      daysContainer.appendChild(div);
+    });
+  }
+
+  // Render menú radios con estilo
+  function renderMenuTypes() {
+    menuTypeGroup.innerHTML = "";
+    for (const [name, price] of Object.entries(PRICES)) {
+      const div = document.createElement("div");
+      div.className = `menu-radio ${currentMenuType === name ? 'selected' : ''}`;
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "menuType";
+      radio.value = name;
+      radio.checked = currentMenuType === name;
+      radio.style.display = "none";
+      radio.addEventListener("change", () => {
+        if (radio.checked) {
+          currentMenuType = name;
+          document.querySelectorAll(".menu-radio").forEach(el => el.classList.remove("selected"));
+          div.classList.add("selected");
+          updateTotal();
+        }
+      });
+      const strong = document.createElement("strong");
+      strong.innerText = name;
+      const spanPrice = document.createElement("span");
+      spanPrice.className = "price-label";
+      spanPrice.innerText = `$${price.toLocaleString()}`;
+      div.appendChild(radio);
+      div.appendChild(strong);
+      div.appendChild(spanPrice);
+      div.addEventListener("click", () => {
+        radio.checked = true;
+        const event = new Event('change');
+        radio.dispatchEvent(event);
+      });
+      menuTypeGroup.appendChild(div);
+    }
+  }
+
+  // calcular total
+  function computeTotal() {
+    const daysCount = selectedDays.filter(v => v === true).length;
+    const pricePerMenu = PRICES[currentMenuType];
+    const total = pricePerMenu * quantity * daysCount;
+    return total;
+  }
+
+  function updateTotal() {
+    if (isOrderBlocked) {
+      dynamicTotalSpan.innerText = "Pedidos cerrados";
+      return;
+    }
+    const total = computeTotal();
+    dynamicTotalSpan.innerText = `$${total.toLocaleString('es-CL')}`;
+  }
+
+  // Hora Chile y bloqueo + contador
+  function getChileTime() {
+    const now = new Date();
+    const formatter = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Santiago', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false });
+    const parts = formatter.formatToParts(now);
+    let hour = 0, minute = 0, second = 0;
+    for (const part of parts) {
+      if (part.type === 'hour') hour = parseInt(part.value, 10);
+      if (part.type === 'minute') minute = parseInt(part.value, 10);
+      if (part.type === 'second') second = parseInt(part.value, 10);
+    }
+    return { hour, minute, second };
+  }
+
+  function updateBlockStatusAndCountdown() {
+    const { hour, minute, second } = getChileTime();
+    const totalSecondsNow = hour * 3600 + minute * 60 + second;
+    const targetSeconds = 20 * 3600; // 20:00
+    let secondsLeft = targetSeconds - totalSecondsNow;
+    
+    if (secondsLeft <= 0) {
+      if (!isOrderBlocked) {
+        isOrderBlocked = true;
+        payBtn.disabled = true;
+        payBtn.style.backgroundColor = "#9ca3af";
+        blockMsgSpan.innerText = "🚫 Pedidos cerrados por hoy. Regresa mañana antes de las 20:00 hrs.";
+        dynamicTotalSpan.innerText = "No disponible";
+        // Afecta visualmente el cotizador
+        document.getElementById("quoteCard").style.opacity = "0.8";
+      }
+      countdownEl.innerText = "00:00:00";
+    } else {
+      if (isOrderBlocked) {
+        isOrderBlocked = false;
+        payBtn.disabled = false;
+        payBtn.style.backgroundColor = "";
+        blockMsgSpan.innerText = "";
+        document.getElementById("quoteCard").style.opacity = "1";
+        updateTotal();
+      }
+      const hoursLeft = Math.floor(secondsLeft / 3600);
+      const minsLeft = Math.floor((secondsLeft % 3600) / 60);
+      const secsLeft = secondsLeft % 60;
+      countdownEl.innerText = `${hoursLeft.toString().padStart(2,'0')}:${minsLeft.toString().padStart(2,'0')}:${secsLeft.toString().padStart(2,'0')}`;
+    }
+  }
+
+  // Simular pago (Webpay / MercadoPago)
+  function handlePayment() {
+    if (isOrderBlocked) {
+      alert("⛔ Ya pasaron las 20:00 hrs. Los pedidos están cerrados para hoy. ¡Vuelve mañana!");
+      return false;
+    }
+    const daysSelectedCount = selectedDays.filter(v => v === true).length;
+    if (daysSelectedCount === 0) {
+      alert("❌ Selecciona al menos un día para continuar.");
+      return false;
+    }
+    const total = computeTotal();
+    alert(`✅ Pedido simulado exitoso.\nTotal: $${total.toLocaleString('es-CL')}\nMétodo de pago: Webpay / MercadoPago (demo).\n¡Recibirás tu confirmación al instante!`);
+    // Aquí se integraría redirección real a pasarela.
+    return true;
+  }
+
+  // Scroll a sección cotizador
+  function scrollToCotizador() {
+    document.getElementById("cotizador").scrollIntoView({ behavior: "smooth" });
+  }
+
+  // Inicializar eventos generales
+  function init() {
+    renderDays();
+    renderMenuTypes();
+    quantityInput.addEventListener("input", (e) => {
+      quantity = Math.max(1, parseInt(e.target.value) || 1);
+      e.target.value = quantity;
+      updateTotal();
+    });
+    payBtn.addEventListener("click", handlePayment);
+    
+    // Botones principales: Pedir ahora y ver menú
+    const heroOrder = document.getElementById("heroOrderBtn");
+    const heroMenu = document.getElementById("heroMenuBtn");
+    const finalCta = document.getElementById("finalCtaBtn");
+    const stickyBtn = document.getElementById("stickyOrderBtn");
+    heroOrder.addEventListener("click", scrollToCotizador);
+    heroMenu.addEventListener("click", () => document.getElementById("menuSection").scrollIntoView({ behavior: "smooth" }));
+    finalCta.addEventListener("click", scrollToCotizador);
+    stickyBtn.addEventListener("click", scrollToCotizador);
+    
+    // Botón empresa
+    document.getElementById("empresaBtn").addEventListener("click", () => alert("📞 Cotización para empresas: escríbenos a hola@almuerzos.cl o WhatsApp +569 1234 5678"));
+    
+    // actualizar total al cambiar días o tipo (eventos ya en checkbox y radio)
+    updateTotal();
+    setInterval(() => {
+      updateBlockStatusAndCountdown();
+      if (!isOrderBlocked) updateTotal();
+    }, 1000);
+    updateBlockStatusAndCountdown();
+  }
+
+  init();
+</script>
+</body>
+</html>
